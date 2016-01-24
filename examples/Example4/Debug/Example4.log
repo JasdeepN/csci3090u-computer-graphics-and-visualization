@@ -1,0 +1,14 @@
+﻿  Shaders.cpp
+c:\csci 3090\example4\shaders.cpp(22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+  main.cpp
+c:\csci 3090\example4\main.cpp(109): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\csci 3090\example4\main.cpp(158): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\csci 3090\example4\main.cpp(171): warning C4305: '-=': truncation from 'double' to 'float'
+c:\csci 3090\example4\main.cpp(174): warning C4305: '+=': truncation from 'double' to 'float'
+c:\csci 3090\example4\main.cpp(177): warning C4305: '+=': truncation from 'double' to 'float'
+c:\csci 3090\example4\main.cpp(180): warning C4305: '-=': truncation from 'double' to 'float'
+  GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+  GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+  Generating Code...
+  Example4.vcxproj -> C:\CSCI 3090\Example4\Debug\Example4.exe
