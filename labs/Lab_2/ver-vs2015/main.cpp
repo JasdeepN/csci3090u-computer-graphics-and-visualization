@@ -20,7 +20,7 @@
 #include <algorithm>    
 
 GLuint program;			// shader programs
-GLuint triangleVAO;
+//GLuint triangleVAO;
 GLuint objVAO; // the data to be displayed
 float angle = 0.0;
 int triangles; // number of triangles
@@ -29,12 +29,13 @@ int window;
 double theta = 1.5;
 double phi = 1.5;
 double r = 500.0;
-
-glm::mat4 projection;	// projection matrix
-
 float eyex = 0.0;
 float eyey = 500.0;
 float eyez = 0.0;
+
+glm::mat4 projection;	// projection matrix
+
+
 
 float cx;
 float cy;
@@ -77,9 +78,10 @@ void init() {
 	vertices = new GLfloat[nv];
 
 	int count = 0, xyz = 0;
-	float xh = 0, yh = 0, zh = 0, xl = 9999999, yl = 9999999, zl = 9999999;
+	float xh = -999999.0f, yh = -999999.0f, zh = -999999.0f, xl = 9999999.0f, yl = 9999999.0f, zl = 9999999.0f;
 	while (count < nv) {
 		*vertices = shapes.at(0).mesh.positions.at(count);
+		//std::cout << *vertices << "\n";
 
 		if (xyz == 0) {
 			xyz++;
@@ -105,9 +107,11 @@ void init() {
 
 	/* Compute center of the object */
 
-	cx = xh - xl;
-	cy = yh - yl;
-	cz = zh - zl;
+
+
+	cx = abs(xh + xl)/2;
+	cy = abs(yh + yl)/2;
+	cz = abs(zh + zl)/2;
 	printf("center: %f %f %f\n", cx, cy, cz); // cx, cy and cz are the coordinates of the centre
 
 	/*  Retrieve the vertex normals */
