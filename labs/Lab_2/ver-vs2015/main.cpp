@@ -17,9 +17,7 @@
 #include <stdio.h>
 #include "tiny_obj_loader.h"
 #include <iostream>
-#include <algorithm>    // std::max
-
-
+#include <algorithm>    
 
 GLuint program;			// shader programs
 GLuint triangleVAO;
@@ -107,16 +105,30 @@ void init() {
 
 	/* Compute center of the object */
 
-
+	cx = xh - xl;
+	cy = yh - yl;
+	cz = zh - zl;
 	printf("center: %f %f %f\n", cx, cy, cz); // cx, cy and cz are the coordinates of the centre
 
 	/*  Retrieve the vertex normals */
-
-
+	nn = shapes.at(0).mesh.positions.size();
+	normals = new GLfloat[nn];
+	count = 0;
+	while (count < nn) {
+		*normals = shapes.at(0).mesh.normals.at(count);
+		count++;
+	}
 
 	/*  Retrieve the triangle indices */
 
-
+	ni = shapes.at(0).mesh.indices.size();
+	indices = new GLushort[ni];
+	
+	count = 0;
+		while (count < ni) {
+		*indices = shapes.at(0).mesh.indices.at(count);
+		count++;
+	}
 
 	/*
 	*  load the vertex coordinate data
@@ -253,7 +265,7 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(320, 320);
-	window = glutCreateWindow("Lab One");
+	window = glutCreateWindow("Lab Two");
 
 	/*
 	*  initialize glew
@@ -268,14 +280,6 @@ int main(int argc, char **argv) {
 	glutIdleFunc(idleFunc);
 	glutReshapeFunc(changeSize);
 	glutKeyboardFunc(keyboardFunc);
-
-	eyex = 0.0;
-	eyey = 10.0;
-	eyez = 0.0;
-
-	theta = 1.5;
-	phi = 1.5;
-	r = 10.0;
 
 	init();
 
