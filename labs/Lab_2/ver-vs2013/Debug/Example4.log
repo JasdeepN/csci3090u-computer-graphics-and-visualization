@@ -1,0 +1,38 @@
+﻿Build started 1/26/2016 10:34:48 AM.
+     1>Project "C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_2\Lab_2\Example4.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\CSCI 3090\glm" /I"C:\CSCI 3090\glew\include" /I"C:\CSCI 3090\freeglut\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp Shaders.cpp tiny_obj_loader.cc
+         tiny_obj_loader.cc
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\tiny_obj_loader.cc(338): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : see declaration of 'sscanf'
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\tiny_obj_loader.cc(628): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : see declaration of 'sscanf'
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\tiny_obj_loader.cc(649): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : see declaration of 'sscanf'
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\tiny_obj_loader.cc(710): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(304) : see declaration of 'sscanf'
+         Shaders.cpp
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\shaders.cpp(22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+         main.cpp
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(142): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(183): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(209): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(210): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(211): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         Generating Code...
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(97): warning C4700: uninitialized local variable 'nn' used
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(99): warning C4700: uninitialized local variable 'normals' used
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(106): warning C4700: uninitialized local variable 'indices' used
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_2\lab_2\main.cpp(106): warning C4700: uninitialized local variable 'ni' used
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_2\Lab_2\Debug\Example4.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\CSCI 3090\glew\lib\Release\Win32" /LIBPATH:"C:\CSCI 3090\freeglut\lib\x86\Debug" freeglut.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_2\Lab_2\Debug\Example4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_2\Lab_2\Debug\Example4.lib" /MACHINE:X86 Debug\main.obj
+         Debug\Shaders.obj
+         Debug\tiny_obj_loader.obj
+         Example4.vcxproj -> C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_2\Lab_2\Debug\Example4.exe
+     1>Done Building Project "C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_2\Lab_2\Example4.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.66
