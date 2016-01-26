@@ -1,7 +1,7 @@
 /************************************************
 *
 *             Laboratory 2
-	
+
 *	An example showing how tiny obj loader can
 *	be used to load an obj file.
 *
@@ -17,10 +17,12 @@
 #include <stdio.h>
 #include "tiny_obj_loader.h"
 #include <iostream>
+#include <algorithm>    // std::max
+
 
 
 GLuint program;			// shader programs
-GLuint triangleVAO;	
+GLuint triangleVAO;
 GLuint objVAO; // the data to be displayed
 float angle = 0.0;
 int triangles; // number of triangles
@@ -39,12 +41,12 @@ float eyez = 0.0;
 float cx;
 float cy;
 float cz;
-						/*
-						*  The init procedure creates the OpenGL data structures
-						*  that contain the triangle geometry, compiles our
-						*  shader program and links the shader programs to
-						*  the data.
-						*/
+/*
+*  The init procedure creates the OpenGL data structures
+*  that contain the triangle geometry, compiles our
+*  shader program and links the shader programs to
+*  the data.
+*/
 
 void init() {
 
@@ -75,12 +77,34 @@ void init() {
 
 	nv = shapes.at(0).mesh.positions.size();
 	vertices = new GLfloat[nv];
-	int count = 0;
+
+	int count = 0, xyz = 0;
+	float xh = 0, yh = 0, zh = 0, xl = 9999999, yl = 9999999, zl = 9999999;
 	while (count < nv) {
 		*vertices = shapes.at(0).mesh.positions.at(count);
+
+		if (xyz == 0) {
+			xyz++;
+			xh = std::max(*vertices, xh);
+			xl = std::min(*vertices, xl);
+		}
+		else if (xyz == 1) {
+			xyz++;
+			yh = std::max(*vertices, yh);
+			yl = std::min(*vertices, yl);
+		}
+		else {
+			xyz = 0;
+			zh = std::max(*vertices, zh);
+			zl = std::min(*vertices, zl);
+		}
 		count++;
-		std::cout << count << " ";
 	}
+
+	std::cout << "x max: " << xh << " x min: " << xl << "\n";
+	std::cout << "y max: " << yh << " y min: " << yl << "\n";
+	std::cout << "z max: " << zh << " z min: " << zl << "\n";
+
 	/* Compute center of the object */
 
 
@@ -88,11 +112,11 @@ void init() {
 
 	/*  Retrieve the vertex normals */
 
-	
+
 
 	/*  Retrieve the triangle indices */
 
-	
+
 
 	/*
 	*  load the vertex coordinate data
