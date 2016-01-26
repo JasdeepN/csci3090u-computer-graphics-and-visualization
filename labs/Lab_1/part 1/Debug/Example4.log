@@ -1,0 +1,25 @@
+﻿Build started 1/19/2016 9:08:26 AM.
+     1>Project "C:\Users\100493157\Desktop\Lab_1\part 1\Example4.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\CSCI 3090\glm" /I"C:\CSCI 3090\glew\include" /I"C:\CSCI 3090\freeglut\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(132): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(182): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(194): warning C4244: '-=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(197): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(200): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(203): warning C4244: '-=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(206): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(207): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\desktop\lab_1\part 1\main.cpp(208): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100493157\Desktop\Lab_1\part 1\Debug\Example4.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\CSCI 3090\glew\lib\Release\Win32" /LIBPATH:"C:\CSCI 3090\freeglut\lib\x86\Debug" freeglut.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100493157\Desktop\Lab_1\part 1\Debug\Example4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\100493157\Desktop\Lab_1\part 1\Debug\Example4.lib" /MACHINE:X86 Debug\main.obj
+         Debug\Shaders.obj
+         Example4.vcxproj -> C:\Users\100493157\Desktop\Lab_1\part 1\Debug\Example4.exe
+     1>Done Building Project "C:\Users\100493157\Desktop\Lab_1\part 1\Example4.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.02
