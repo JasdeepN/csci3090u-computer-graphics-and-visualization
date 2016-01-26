@@ -75,7 +75,12 @@ void init() {
 
 	nv = shapes.at(0).mesh.positions.size();
 	vertices = new GLfloat[nv];
-
+	int count = 0;
+	while (count < nv) {
+		*vertices = shapes.at(0).mesh.positions.at(count);
+		count++;
+		std::cout << count << " ";
+	}
 	/* Compute center of the object */
 
 
