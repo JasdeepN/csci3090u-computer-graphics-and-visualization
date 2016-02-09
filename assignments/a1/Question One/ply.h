@@ -169,7 +169,7 @@ typedef struct PlyFile {        /* description of PLY file */
 
 /* memory allocation */
 extern char *my_alloc();
-#define my_alloc(mem_size) my_alloc((mem_size), __LINE__, __FILE__)
+#define myalloc(mem_size) my_alloc((mem_size), __LINE__, __FILE__)
 
 #ifndef ALLOCN
 #define REALLOCN(PTR,TYPE,OLD_N,NEW_N)							\

@@ -1,51 +1,37 @@
 /************************************************
  *
+ *             Example One
  *
+ *  A very basic OpenGL program that draws a
+ *  triangle on the screen.  This program illustrates
+ *  the basic code required for an OpenGL program.
  *
  ************************************************/
 
 #include <Windows.h>
-#include <stdio.h>
-#include <iostream>
 #include <gl/glew.h>
 #include <gl/glut.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "shaders.h"
+#include <stdio.h>
 #include "readply.h"
-#include "readply.c"
-
-#include "ply.h"
-
 
 GLuint program;			// shader programs
 GLuint triangleVAO;		// the data to be displayed
 float angle = 0.0;
 int window;
-int triangles;			// number of triangles
-
-
 
 glm::mat4 projection;	// projection matrix
-float eyex, eyey, eyez;	// eye position
 
-char x[] = "bunny.ply";
-GLuint vbuffer;
-GLuint ibuffer;
-GLint vPosition;
-GLint vNormal;
-int vs;
-int fs;
+float eyex = 0.0;
+float eyey = 10.0;
+float eyez = 0.0;
+float theta = 1.5;
+float phi = 1.5;
+float r = 10.0;
 
-
-GLfloat *vertices;
-
-GLfloat *normals;
-
-GLushort *indexes;
-
-ply_model *mod;
 
 /*
  *  The init procedure creates the OpenGL data structures
@@ -55,10 +41,46 @@ ply_model *mod;
  */
 
 void init() {
-	mod = ply_model::readply(x);
+	GLuint vbuffer;
+	GLuint ibuffer;
+	GLint vPosition;
+	GLint vNormal;
+	int vs;
+	int fs;
+
+
 
 	glGenVertexArrays(1, &triangleVAO);
 	glBindVertexArray(triangleVAO);
+
+	GLfloat vertices[8][4] = {
+		{ -1.0, -1.0, -1.0, 1.0 }, //0
+		{ -1.0, -1.0, 1.0, 1.0 }, //1
+		{ -1.0, 1.0, -1.0, 1.0 }, //2
+		{ -1.0, 1.0, 1.0, 1.0 }, //3
+		{ 1.0, -1.0, -1.0, 1.0 }, //4
+		{ 1.0, -1.0, 1.0, 1.0 }, //5
+		{ 1.0, 1.0, -1.0, 1.0 }, //6
+		{ 1.0, 1.0, 1.0, 1.0 } //7
+	};
+	GLfloat normals[8][3] = {
+		{ -1.0, -1.0, -1.0 }, //0
+		{ -1.0, -1.0, 1.0 }, //1
+		{ -1.0, 1.0, -1.0 }, //2
+		{ -1.0, 1.0, 1.0 }, //3
+		{ 1.0, -1.0, -1.0 }, //4
+		{ 1.0, -1.0, 1.0 }, //5
+		{ 1.0, 1.0, -1.0 }, //6
+		{ 1.0, 1.0, 1.0 } //7
+
+
+	};
+	GLushort indexes[36] = { 0, 1, 3, 0, 2, 3,
+		0, 4, 5, 0, 1, 5,
+		2, 6, 7, 2, 3, 7,
+		0, 4, 6, 0, 2, 6,
+		1, 5, 7, 1, 3, 7,
+		4, 5, 7, 4, 6, 7 };
 
 
 	/*
@@ -66,7 +88,7 @@ void init() {
 	 */
 	glGenBuffers(1, &vbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) + sizeof(normals), NULL, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(normals), NULL, GL_STATIC_DRAW);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(normals), normals);
 
@@ -80,8 +102,8 @@ void init() {
 	/*
 	 *  compile and build the shader program
 	 */
-	vs = buildShader(GL_VERTEX_SHADER, "vertex_shader.vs");
-	fs = buildShader(GL_FRAGMENT_SHADER, "fragment_shader.fs");
+	vs = buildShader(GL_VERTEX_SHADER, "example4.vs");
+	fs = buildShader(GL_FRAGMENT_SHADER, "example4.fs");
 	program = buildProgram(vs, fs, 0);
 
 	/*
@@ -90,7 +112,7 @@ void init() {
 	 */
 	glUseProgram(program);
 	vPosition = glGetAttribLocation(program, "vPosition");
-	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(vPosition);
 	vNormal = glGetAttribLocation(program, "vNormal");
 	glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, (void*) sizeof(vertices));
@@ -139,7 +161,7 @@ void displayFunc() {
 
 	modelViewPerspective = projection * view * model;
 
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram(program);
 	modelLoc = glGetUniformLocation(program, "model");
 	glUniformMatrix4fv(modelLoc, 1, 0, glm::value_ptr(modelViewPerspective));
@@ -147,11 +169,12 @@ void displayFunc() {
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
 
 	glBindVertexArray(triangleVAO);
-	glDrawElements(GL_TRIANGLES, 3*triangles, GL_UNSIGNED_INT, NULL); //change this to short to get triangle back
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
 	glutSwapBuffers();
 
 }
+
 
 /*
  *  Update the value of angle on each update
@@ -164,32 +187,30 @@ void idleFunc() {
 
 }
 
-
-
 /*
  *  Called each time a key is pressed on
  *  the keyboard.
  */
-void keyboardFunc(unsigned char key, int x, int y) {
-
+void keyboardFunc(unsigned char key, int phi, int theta) {
 	switch (key) {
 	case 'a':
-		eyey -= 0.1;
+		phi -= 0.5;
 		break;
 	case 'd':
-		eyey += 0.1;
+		phi += 0.5;
 		break;
 	case 'w':
-		eyex += 0.1;
+		theta += 0.5;
 		break;
 	case 's':
-		eyex -= 0.1;
+		theta -= 0.5;
 		break;
 	}
+	eyex = r*sin(theta)*cos(phi);
+	eyey = r*sin(theta)*sin(phi);
+	eyez = r*cos(theta);
 	glutPostRedisplay();
-
 }
-
 
 int main(int argc, char **argv) {
 
@@ -198,10 +219,10 @@ int main(int argc, char **argv) {
 	 *  the application and create the window
 	 */
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(320, 320);
-	window = glutCreateWindow("Assignment One");
+	window = glutCreateWindow("Example One");
 
 	/*
 	 *  initialize glew
@@ -219,11 +240,12 @@ int main(int argc, char **argv) {
 
 	eyex = 0.0;
 	eyey = 0.0;
-	eyez = 4.0;
+	eyez = 10.0;
 
 	init();
+	glEnable(GL_DEPTH_TEST);
 
-	glClearColor(0.7, 0.7, 0.7, 1.0);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
 
 	glutMainLoop();
 

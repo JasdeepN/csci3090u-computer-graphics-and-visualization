@@ -7,7 +7,13 @@
  *  the procedure.
  *
  **********************************************************/
- 
+#ifndef __READPLY_H__
+#define __READPLY_H__
+
+
+#ifdef __cplusplus
+extern "C"{
+#endif
  /*
   *  The vertex struct contains the information
   *  for a single vertex.  This includes its x,
@@ -54,3 +60,7 @@ struct ply_model {
  */
 struct ply_model *readply(char *filename);
         
+#ifdef __cplusplus
+}
+#endif
+#endif

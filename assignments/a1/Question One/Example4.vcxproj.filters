@@ -18,10 +18,10 @@
     <ClInclude Include="Shaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="readply.h">
+    <ClInclude Include="ply.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ply.h">
+    <ClInclude Include="readply.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -40,10 +40,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment_shader.fs">
+    <None Include="example4.fs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="vertex_shader.vs">
+    <None Include="example4.vs">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
