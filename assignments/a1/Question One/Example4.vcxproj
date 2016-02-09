@@ -80,10 +80,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ply.h" />
+    <ClInclude Include="readply.h" />
     <ClInclude Include="Shaders.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="plyfile.c" />
+    <ClCompile Include="readply.c" />
     <ClCompile Include="Shaders.cpp" />
   </ItemGroup>
   <ItemGroup>

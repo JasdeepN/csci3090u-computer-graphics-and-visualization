@@ -1,1 +1,9 @@
-﻿
+﻿  main.cpp
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(56): error C2653: 'readply': is not a class or namespace name
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(111): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(160): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(175): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(178): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(181): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(184): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(224): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
