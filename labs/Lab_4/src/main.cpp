@@ -168,19 +168,21 @@ void displayFunc() {
 	glUniform4f(colourLoc, 1.0, 0.0, 0.0, 1.0);
 	glUniformMatrix4fv(modelLoc, 1, 0, glm::value_ptr(model));
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, NULL);
+	glDrawElements(GL_LINES, 36, GL_UNSIGNED_SHORT, NULL);
+
 	model = glm::translate(model, glm::vec3(2.0, 2.0, 0.0));
 	normal = glm::transpose(glm::inverse(glm::mat3(view*model)));
 	glUniform4f(colourLoc, 0.0, 1.0, 0.0, 1.0);
 	glUniformMatrix4fv(modelLoc, 1, 0, glm::value_ptr(model));
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, NULL);
+	glDrawElements(GL_LINES, 36, GL_UNSIGNED_SHORT, NULL);
+	
 	model = glm::translate(model, glm::vec3(-4.0, 2.0, 0.0));
 	normal = glm::transpose(glm::inverse(glm::mat3(view*model)));
 	glUniform4f(colourLoc, 0.0, 0.0, 1.0, 1.0);
 	glUniformMatrix4fv(modelLoc, 1, 0, glm::value_ptr(model));
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, NULL);
+	glDrawElements(GL_LINES, 36, GL_UNSIGNED_SHORT, NULL);
 	glutSwapBuffers();
 }
 
@@ -191,7 +193,7 @@ void displayFunc() {
 void idleFunc() {
 
 	glutSetWindow(window);
-	angle = angle + 0.1;
+	angle = angle + 1.0;
 	glutPostRedisplay();
 
 }
@@ -201,18 +203,15 @@ void idleFunc() {
  *  the keyboard.
  */
 void keyboardFunc(unsigned char key, int phi, int theta) {
+	float x = 45.0;
 	switch (key) {
-	case 'a':
-		phi -= 0.5;
+	case 'z':
+		//x = x + 1.0f;
+		projection = glm::perspective(-45.0f, 1.0f, 1.0f, 100.0f);
 		break;
-	case 'd':
-		phi += 0.5;
-		break;
-	case 'w':
-		theta += 0.5;
-		break;
-	case 's':
-		theta -= 0.5;
+	case 'x':
+		//x = x - 1.0f;
+		projection = glm::perspective(-50.0f, 1.0f, 1.0f, 100.0f);
 		break;
 	case 'p':
 		projection = glm::perspective(45.0f, 1.0f, 1.0f, 100.0f);
@@ -253,9 +252,9 @@ int main(int argc, char **argv) {
 	glutReshapeFunc(changeSize);
 	glutKeyboardFunc(keyboardFunc);
 
-//	eyex = 0.0;
-//	eyey = 0.0;
-	//eyez = 10.0;
+	eyex = 0.0;
+	eyey = 15.0;
+	eyez = 0.0;
 
 	init();
 	glEnable(GL_DEPTH_TEST);
