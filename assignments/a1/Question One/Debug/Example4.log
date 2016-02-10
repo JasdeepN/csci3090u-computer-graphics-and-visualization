@@ -8,7 +8,6 @@ c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization
 c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(214): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(215): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(216): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(248): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(253): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
   GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.

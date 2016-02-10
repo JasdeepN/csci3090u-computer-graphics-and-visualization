@@ -36,7 +36,7 @@ float r = 10.0;
 int bad_variable;
 int nv;
 int nn;
-int ni;
+unsigned int ni;
 
 
 /*
@@ -55,6 +55,9 @@ void init() {
 	int fs;
 	char file[]{ "bunny.ply" };
 
+	glGenVertexArrays(1, &triangleVAO);
+	glBindVertexArray(triangleVAO);
+
 	ply_model *model = readply(file);
 
 	GLfloat *vertices = new GLfloat[3 * model->nvertex];
@@ -65,9 +68,6 @@ void init() {
 		vertices[i * 3 + 2] = model->vertices[i].z;
 	}
 
-	glGenVertexArrays(1, &triangleVAO);
-	glBindVertexArray(triangleVAO);
-
 	GLfloat *normals = new GLfloat[3 * model->nvertex];
 
 	for (int i = 0; i < model->nvertex; i++) {
@@ -76,7 +76,7 @@ void init() {
 		normals[i * 3 + 2] = 1;
 	}
 
-	GLuint *indexes = new GLuint[3 * model->nface];
+	GLushort *indexes = new GLushort[3 * model->nface];
 
 	for (int i = 0; i < model->nface; i++) {
 		indexes[i * 3] = model->faces[i].vertices[0];
@@ -174,7 +174,7 @@ void displayFunc() {
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
 
 	glBindVertexArray(triangleVAO);
-	glDrawElements(GL_TRIANGLES, ni, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, ni, GL_UNSIGNED_SHORT, NULL);
 
 	glutSwapBuffers();
 
@@ -199,16 +199,16 @@ void idleFunc() {
 void keyboardFunc(unsigned char key, int phi, int theta) {
 	switch (key) {
 	case 'a':
-		phi -= 0.5;
+		phi -= 0.01;
 		break;
 	case 'd':
-		phi += 0.5;
+		phi += 0.01;
 		break;
 	case 'w':
-		theta += 0.5;
+		theta += 0.01;
 		break;
 	case 's':
-		theta -= 0.5;
+		theta -= 0.01;
 		break;
 	}
 	eyex = r*sin(theta)*cos(phi);
@@ -245,7 +245,7 @@ int main(int argc, char **argv) {
 
 	eyex = 0.0;
 	eyey = 0.0;
-	eyez = 0.7;
+	eyez = 1.0;
 
 	init();
 	glEnable(GL_DEPTH_TEST);
