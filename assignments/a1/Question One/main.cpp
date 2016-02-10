@@ -17,6 +17,8 @@
 #include "shaders.h"
 #include <stdio.h>
 #include "readply.h"
+#include <iostream>	
+#include <vector>
 
 GLuint program;			// shader programs
 GLuint triangleVAO;		// the data to be displayed
@@ -47,31 +49,29 @@ void init() {
 	GLint vNormal;
 	int vs;
 	int fs;
+	char file[]{ "bunny.ply" };
+
+	ply_model *model = readply(file);
+
+	/*glGenVertexArrays(1, &triangleVAO);
+	glBindVertexArray(triangleVAO);*/
+
+	ply_vertex *x = model->vertices;
+
+	std::vector<std::vector <float> > vertices;
+	//make 2d vector and resize it  
+	//use to array and change it after
+	vertices.resize(model->nvertex, std::vector<float>(3));
+
+	for (int i = 0; i < model->nvertex; i++) {
+		(vertices[i])[0] = model->vertices[i].x;
+		(vertices[i])[1] = model->vertices[i].y;
+		(vertices[i])[2] = model->vertices[i].z;
+		//std::cout<< model->vertices[i].x << " " << model->vertices[i].y << " " << model->vertices[i].z << "\n";
+	}
 
 
-
-	glGenVertexArrays(1, &triangleVAO);
-	glBindVertexArray(triangleVAO);
-
-	GLfloat vertices[8][4] = {
-		{ -1.0, -1.0, -1.0, 1.0 }, //0
-		{ -1.0, -1.0, 1.0, 1.0 }, //1
-		{ -1.0, 1.0, -1.0, 1.0 }, //2
-		{ -1.0, 1.0, 1.0, 1.0 }, //3
-		{ 1.0, -1.0, -1.0, 1.0 }, //4
-		{ 1.0, -1.0, 1.0, 1.0 }, //5
-		{ 1.0, 1.0, -1.0, 1.0 }, //6
-		{ 1.0, 1.0, 1.0, 1.0 } //7
-	};
-	GLfloat normals[8][3] = {
-		{ -1.0, -1.0, -1.0 }, //0
-		{ -1.0, -1.0, 1.0 }, //1
-		{ -1.0, 1.0, -1.0 }, //2
-		{ -1.0, 1.0, 1.0 }, //3
-		{ 1.0, -1.0, -1.0 }, //4
-		{ 1.0, -1.0, 1.0 }, //5
-		{ 1.0, 1.0, -1.0 }, //6
-		{ 1.0, 1.0, 1.0 } //7
+	GLfloat normals;
 
 
 	};
@@ -88,8 +88,8 @@ void init() {
 	 */
 	glGenBuffers(1, &vbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(normals), NULL, GL_STATIC_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) + sizeof(normals), NULL, GL_STATIC_DRAW);
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(normals), normals);
 
 	/*

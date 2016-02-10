@@ -1,63 +1,13 @@
-﻿Build started 2/9/2016 4:44:47 PM.
-     1>Project "C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Example4.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\CSCI 3090\glm" /I"C:\CSCI 3090\glew\include" /I"C:\CSCI 3090\freeglut\include" /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp Shaders.cpp
-         Shaders.cpp
-         main.cpp
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(135): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(185): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(197): warning C4244: '-=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(200): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(203): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(206): warning C4244: '-=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(209): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(210): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(211): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-         GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-         Generating Code...
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\CSCI 3090\glm" /I"C:\CSCI 3090\glew\include" /I"C:\CSCI 3090\freeglut\include" /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt plyfile.c readply.c
-         readply.c
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\readply.c(51): warning C4101: 'mesh' : unreferenced local variable
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\readply.c(50): warning C4101: 'type' : unreferenced local variable
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\readply.c(54): warning C4101: 'nmesh' : unreferenced local variable
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\readply.c(52): warning C4101: 'k' : unreferenced local variable
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\readply.c(52): warning C4101: 'j' : unreferenced local variable
-         plyfile.c
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(223): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(698): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(722): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(811): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(847): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(1229): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(1328): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(1385): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(2214): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(2628): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(2656): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(2717): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(2722): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\plyfile.c(2789): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Debug\Example4.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\CSCI 3090\glew\lib\Release\Win32" /LIBPATH:"C:\CSCI 3090\freeglut\lib\x86\Debug" freeglut.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Debug\Example4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Debug\Example4.lib" /MACHINE:X86 Debug\main.obj
-         Debug\plyfile.obj
-         Debug\readply.obj
-         Debug\Shaders.obj
-         Example4.vcxproj -> C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Debug\Example4.exe
-     1>Done Building Project "C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Example4.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:01.69
+﻿  main.cpp
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(151): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(201): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(213): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(216): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(219): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(222): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(225): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(226): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(227): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+  GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+  Example4.vcxproj -> C:\Users\jasde\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Debug\Example4.exe
