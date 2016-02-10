@@ -1,13 +1,15 @@
 ﻿  main.cpp
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(151): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(201): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(213): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(216): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(219): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(222): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(225): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(226): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(227): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(140): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(190): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(202): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(205): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(208): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(211): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(214): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(215): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(216): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(248): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\jasde\documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\question one\main.cpp(253): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
   GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   Example4.vcxproj -> C:\Users\jasde\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\assignments\a1\Question One\Debug\Example4.exe

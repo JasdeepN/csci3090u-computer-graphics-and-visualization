@@ -28,11 +28,15 @@ int window;
 glm::mat4 projection;	// projection matrix
 
 float eyex = 0.0;
-float eyey = 10.0;
-float eyez = 0.0;
+float eyey = 0.0;
+float eyez = 0.5;
 float theta = 1.5;
 float phi = 1.5;
 float r = 10.0;
+int bad_variable;
+int nv;
+int nn;
+int ni;
 
 
 /*
@@ -53,51 +57,52 @@ void init() {
 
 	ply_model *model = readply(file);
 
-	/*glGenVertexArrays(1, &triangleVAO);
-	glBindVertexArray(triangleVAO);*/
-
-	ply_vertex *x = model->vertices;
-
-	std::vector<std::vector <float> > vertices;
-	//make 2d vector and resize it  
-	//use to array and change it after
-	vertices.resize(model->nvertex, std::vector<float>(3));
+	GLfloat *vertices = new GLfloat[3 * model->nvertex];
 
 	for (int i = 0; i < model->nvertex; i++) {
-		(vertices[i])[0] = model->vertices[i].x;
-		(vertices[i])[1] = model->vertices[i].y;
-		(vertices[i])[2] = model->vertices[i].z;
-		//std::cout<< model->vertices[i].x << " " << model->vertices[i].y << " " << model->vertices[i].z << "\n";
+		vertices[i * 3] = model->vertices[i].x;
+		vertices[i * 3 + 1] = model->vertices[i].y;
+		vertices[i * 3 + 2] = model->vertices[i].z;
 	}
 
+	glGenVertexArrays(1, &triangleVAO);
+	glBindVertexArray(triangleVAO);
 
-	GLfloat normals;
+	GLfloat *normals = new GLfloat[3 * model->nvertex];
 
+	for (int i = 0; i < model->nvertex; i++) {
+		normals[i * 3] = 0;
+		normals[i * 3 + 1] = 0;
+		normals[i * 3 + 2] = 1;
+	}
 
-	};
-	GLushort indexes[36] = { 0, 1, 3, 0, 2, 3,
-		0, 4, 5, 0, 1, 5,
-		2, 6, 7, 2, 3, 7,
-		0, 4, 6, 0, 2, 6,
-		1, 5, 7, 1, 3, 7,
-		4, 5, 7, 4, 6, 7 };
+	GLuint *indexes = new GLuint[3 * model->nface];
 
+	for (int i = 0; i < model->nface; i++) {
+		indexes[i * 3] = model->faces[i].vertices[0];
+		indexes[i * 3 + 1] = model->faces[i].vertices[1];
+		indexes[i * 3 + 2] = model->faces[i].vertices[2];
+	}
+
+	nn = model->nvertex*3;
+	nv = model->nvertex*3;
+	ni = model->nface*3;
 
 	/*
 	 *  load the vertex coordinate data
 	 */
 	glGenBuffers(1, &vbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) + sizeof(normals), NULL, GL_STATIC_DRAW);
-	//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(normals), normals);
+	glBufferData(GL_ARRAY_BUFFER, (nn+nv)*sizeof(GLfloat) , NULL, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, nv*sizeof(GLfloat), vertices);
+	glBufferSubData(GL_ARRAY_BUFFER, nv*sizeof(GLfloat), nn*sizeof(GLfloat), normals);
 
 	/*
 	 *  load the vertex indexes
 	 */
 	glGenBuffers(1, &ibuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, nv*sizeof(GLushort), indexes, GL_STATIC_DRAW);
 
 	/*
 	 *  compile and build the shader program
@@ -112,10 +117,10 @@ void init() {
 	 */
 	glUseProgram(program);
 	vPosition = glGetAttribLocation(program, "vPosition");
-	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(vPosition);
 	vNormal = glGetAttribLocation(program, "vNormal");
-	glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, (void*) sizeof(vertices));
+	glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, (void*)(nv*sizeof(GLfloat)));
 	glEnableVertexAttribArray(vNormal);
 
 }
@@ -136,7 +141,7 @@ void changeSize(int w, int h) {
 
 	glViewport(0, 0, w, h);
 
-	projection = glm::perspective(45.0f, ratio, 1.0f, 100.0f);
+	projection = glm::perspective(45.0f, ratio, 0.5f, 1000.0f);
 
 }
 
@@ -169,7 +174,7 @@ void displayFunc() {
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
 
 	glBindVertexArray(triangleVAO);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, ni, GL_UNSIGNED_INT, NULL);
 
 	glutSwapBuffers();
 
@@ -222,7 +227,7 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(320, 320);
-	window = glutCreateWindow("Example One");
+	window = glutCreateWindow("Assignment One");
 
 	/*
 	 *  initialize glew
@@ -240,12 +245,12 @@ int main(int argc, char **argv) {
 
 	eyex = 0.0;
 	eyey = 0.0;
-	eyez = 10.0;
+	eyez = 0.7;
 
 	init();
 	glEnable(GL_DEPTH_TEST);
 
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(.7, .7, .7, 1.0);
 
 	glutMainLoop();
 
