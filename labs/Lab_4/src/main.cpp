@@ -184,7 +184,8 @@ void displayFunc() {
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
 	glDrawElements(GL_LINES, 36, GL_UNSIGNED_SHORT, NULL);
 	glutSwapBuffers();
-}
+}
+
 
 
 /*
@@ -195,6 +196,7 @@ void idleFunc() {
 	glutSetWindow(window);
 	angle = angle + 1.0;
 	glutPostRedisplay();
+	
 
 }
 
