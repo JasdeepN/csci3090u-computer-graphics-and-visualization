@@ -16,7 +16,7 @@ void main() {
 	float specular;
 	float n = 100.0;
 	vec3 L;
-    float ambient = 0.3;
+    float ambient = 0.2;
 
 	N = normalize(normal);
 	L = Lposition - position.xyz;

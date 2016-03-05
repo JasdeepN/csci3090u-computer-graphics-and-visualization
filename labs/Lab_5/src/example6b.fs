@@ -15,6 +15,7 @@ void main() {
 	float specular;
 	float n = 100.0;
 	vec3 L;
+    float ambient = 0.3;
 
 	N = normalize(normal);
 	L = Lposition - position.xyz;
@@ -28,6 +29,6 @@ void main() {
 		specular = pow(max(0.0, dot(N,H)),n);
 	}
 
-	gl_FragColor = min(0.3*colour + diffuse*colour*Lcolour + Lcolour*specular, vec4(1.0));
+	gl_FragColor = min(ambient*colour + diffuse*colour*Lcolour + Lcolour*specular, vec4(1.0));
 	gl_FragColor.a = colour.a;
 }

@@ -26,6 +26,8 @@ void main() {
 	L = Lposition - position.xyz;
 	L = normalize(L);
 	H = normalize(L + eye);
+    float ambient = 0.3;
+
 	spotCos = dot(L, normalize(spotDirection));
 	if(spotCos < spotCutoff) {
 		atten = 0;
@@ -40,6 +42,6 @@ void main() {
 		specular = pow(max(0.0, dot(N,H)),n) * atten;
 	}
 
-	gl_FragColor = min(0.3*colour + diffuse*colour*Lcolour + Lcolour*specular, vec4(1.0));
+	gl_FragColor = min(ambient*colour + diffuse*colour*Lcolour + Lcolour*specular, vec4(1.0));
 	gl_FragColor.a = colour.a;
 }

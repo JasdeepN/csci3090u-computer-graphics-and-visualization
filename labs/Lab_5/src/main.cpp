@@ -30,13 +30,13 @@ char *fragmentName;
 
 double theta, phi;
 double angle = 0.0;
-double r;
+double r;	
 
 float cx, cy, cz;
 
 glm::mat4 projection;	// projection matrix
 float eyex, eyey, eyez;	// eye position
-float lx = 500, ly = 500, lz = 800;
+float lx = 500, ly = 500, lz = 800; 
 
 /*
  *  The init procedure creates the OpenGL data structures
@@ -179,8 +179,6 @@ void idleFunc() {
 
 	glutSetWindow(window);
 	angle = angle + 0.001;
-
-
 	glutPostRedisplay();
 
 }
@@ -234,14 +232,15 @@ void displayFunc() {
 	glUniformMatrix4fv(projectionLoc, 1, 0, glm::value_ptr(projection));
 	normalLoc = glGetUniformLocation(program,"normalMat");
 	glUniformMatrix3fv(normalLoc, 1, 0, glm::value_ptr(normal));
-	eyeLoc = glGetUniformLocation(program, "eye");
 
-	lx = cos(angle)*250+cx;
-	lz = sin(angle)*250+cz;
+	lx = cos(angle)*r;
+	lz = sin(angle)*r;
 	
 	
 	lLoc = glGetUniformLocation(program, "Lposition");
 	glUniform3f(lLoc, lx , ly, lz);
+	
+	eyeLoc = glGetUniformLocation(program, "eye");
 	glUniform3f(eyeLoc, eyex, eyey, eyez);
 
 	glBindVertexArray(objVAO);
