@@ -1,0 +1,25 @@
+﻿Build started 3/2/2016 3:32:51 PM.
+     1>Project "C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_5\src\Example6.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\CSCI 3090\glm" /I"C:\CSCI 3090\glew\include" /I"C:\CSCI 3090\freeglut\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_5\src\main.cpp(154): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_5\src\main.cpp(155): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_5\src\main.cpp(236): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_5\src\main.cpp(237): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_5\src\main.cpp(274): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_5\src\main.cpp(275): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\100493157\documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\lab_5\src\main.cpp(276): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_5\src\Debug\Example6.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\CSCI 3090\glew\lib\Release\Win32" /LIBPATH:"C:\CSCI 3090\freeglut\lib\x86\Debug" freeglut.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_5\src\Debug\Example6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_5\src\Debug\Example6.lib" /MACHINE:X86 Debug\main.obj
+         Debug\Shaders.obj
+         Debug\tiny_obj_loader.obj
+         Example6.vcxproj -> C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_5\src\Debug\Example6.exe
+     1>Done Building Project "C:\Users\100493157\Documents\csci3090u\csci3090u-computer-graphics-and-visualization\labs\Lab_5\src\Example6.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.48
