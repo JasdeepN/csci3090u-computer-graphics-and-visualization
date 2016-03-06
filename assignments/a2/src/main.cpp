@@ -18,14 +18,19 @@
 #include <stdio.h>
 #include "tiny_obj_loader.h"
 #include <iostream>
-#include <list>
 
-std::list<GLuint> program;// shader programs 
+GLuint program[6];// shader programs 
+std::string programName[6];// shader programs 
+float results[6];
 GLuint currProgram;
 GLuint objVAO;			// the data to be displayed
 int triangles;			// number of triangles
 int window;
 int runNumber;
+int shaderNumber;
+int shaderTest = 0;
+
+
 int testNumber = 0;
 float sum = 0;
 
@@ -188,55 +193,59 @@ void init() {
 
 }
 
-void buildShaders(){
+void buildShaders() {
 	/*
 	*  compile and build the shader program
 	*/
-	sprintf(vname, "example6a.vs", vertexName);
-	sprintf(fname, "example6a.frag", fragmentName);
+	sprintf(vname, "direct_fr.vs", vertexName);
+	sprintf(fname, "direct_fr.frag", fragmentName);
 	vs = buildShader(GL_VERTEX_SHADER, vname);
 	fs = buildShader(GL_FRAGMENT_SHADER, fname);
-	program.push_back(buildProgram(vs, fs, 0));
-	printf("shader 1 compiled\n");
+	program[0] = (buildProgram(vs, fs, 0));
+	programName[0] = "Directional Light - Fragment Shader";
+	printf("direct_fr compiled\n");
 
 
-	sprintf(vname, "example6d.vs", vertexName);
-	sprintf(fname, "example6d.frag", fragmentName);
+	sprintf(vname, "direct_vx.vs", vertexName);
+	sprintf(fname, "direct_vx.frag", fragmentName);
 	vs = buildShader(GL_VERTEX_SHADER, vname);
 	fs = buildShader(GL_FRAGMENT_SHADER, fname);
-	program.push_back(buildProgram(vs, fs, 0));
-	printf("shader 2 compiled\n");
+	program[1] = (buildProgram(vs, fs, 0));
+	programName[1] = "Directional Light - Vertex Shader";
+	printf("direct_vx compiled\n");
 
-	sprintf(vname, "example6b.vs", vertexName);
-	sprintf(fname, "example6b.frag", fragmentName);
+	sprintf(vname, "world_fr.vs", vertexName);
+	sprintf(fname, "world_fr.frag", fragmentName);
 	vs = buildShader(GL_VERTEX_SHADER, vname);
 	fs = buildShader(GL_FRAGMENT_SHADER, fname);
-	program.push_back(buildProgram(vs, fs, 0));
-	printf("shader 3 compiled\n");
+	program[2] = (buildProgram(vs, fs, 0));
+	programName[2] = "World Coordinates - Fragment Shader";
+	printf("world_fr compiled\n");
 
-	sprintf(vname, "example6e.vs", vertexName);
-	sprintf(fname, "example6e.frag", fragmentName);
+	sprintf(vname, "world_vx.vs", vertexName);
+	sprintf(fname, "world_vx.frag", fragmentName);
 	vs = buildShader(GL_VERTEX_SHADER, vname);
 	fs = buildShader(GL_FRAGMENT_SHADER, fname);
-	program.push_back(buildProgram(vs, fs, 0));
-	printf("shader 4 compiled\n");
+	program[3] = (buildProgram(vs, fs, 0));
+	programName[3] = "World Coordinates - Vertex Shader";
+	printf("world_vx compiled\n");
 
-	sprintf(vname, "example6c.vs", vertexName);
-	sprintf(fname, "example6c.frag", fragmentName);
+	sprintf(vname, "spotlight_fr.vs", vertexName);
+	sprintf(fname, "spotlight_fr.frag", fragmentName);
 	vs = buildShader(GL_VERTEX_SHADER, vname);
 	fs = buildShader(GL_FRAGMENT_SHADER, fname);
-	program.push_back(buildProgram(vs, fs, 0));
-	printf("shader 5 compiled\n");
+	program[4] = (buildProgram(vs, fs, 0));
+	programName[4] = "Spotlight - Fragment Shader";
+	printf("spotlight_fr compiled\n");
 
-	sprintf(vname, "example6f.vs", vertexName);
-	sprintf(fname, "example6f.frag", fragmentName);
+	sprintf(vname, "spotlight_vx.vs", vertexName);
+	sprintf(fname, "spotlight_vx.frag", fragmentName);
 	vs = buildShader(GL_VERTEX_SHADER, vname);
 	fs = buildShader(GL_FRAGMENT_SHADER, fname);
-	program.push_back(buildProgram(vs, fs, 0));
-	printf("shader 6 compiled\n");
-
-
-	currProgram = program.front();
+	program[5] = (buildProgram(vs, fs, 0));
+	programName[5] = "Spotlight - Vertex Shader";
+	printf("spotlight_vx compiled\n");
+	currProgram = program[0];
 	glUseProgram(currProgram);
 }
 
@@ -321,36 +330,45 @@ void idleFunc() {
 	//glutSetWindow(window);
 	//printf("in idle\n");
 	runTime = endTime - startTime;
-	if (!program.empty())
+	//	{
+	//printf("runtime %f end time %f start time %f\n", runTime, startTime, endTime);
+
+	if (testNumber < 6)
 	{
-		if (runNumber < 10)
+		if (shaderNumber < 6)
 		{
-			//printf("runtime %f end time %f start time %f\n", runTime, startTime, endTime);
-			currProgram = program.front();
-			glUseProgram(currProgram);
-			printf("shader ver %i runtime %f\n", currProgram / 3, runTime);
-			sum = sum + runTime;
-			//startTime = 0;
-			//endTime = 0;
-			glutPostRedisplay();
-			runNumber++;
-		}
-		else if (runNumber == 10){
-			testNumber++;
-			printf("test number %i complete avg runtime %f\n", testNumber, sum/runNumber);
-			system("pause");
-			//fprintf() DO THIS SHIT
-			program.pop_front();
-			runNumber = 0;
-			sum = 0;
+			if (runNumber < 10)
+			{
+				//shaderNumber++;
+				sum = sum + runTime;
+				currProgram = program[shaderNumber];
+				glutPostRedisplay();
+				runNumber++;
+			}
+			else if (runNumber == 10)
+			{
+				std::cout << programName[shaderNumber];
+				printf(": 10 runs complete, avg runtime %f\n", sum / runNumber);
+				results[testNumber] = sum / runNumber;
+				testNumber++;
+				shaderNumber++;
+				runNumber = 0;
+				sum = 0;
+			}
 		}
 	}
-	else if (program.empty())
+	if (testNumber == 6)
 	{
-		//printf("finshed\n");
-		//system("pause");
-		printf("total runtime: %f", (totalRunTimeEnd - totalRunTimeStart));
-		exit(0);
+		std::cout << "Test complete" << std::endl;
+		std::cout << "press \'r\' to re-test or \'z\' and \'x\' to switch manually" << std::endl;
+		testNumber++;
+		testNumber++;
+	}
+	if (testNumber == 7)
+	{
+		std::cout << programName[shaderTest];
+		printf(": runtime %f\n", runTime);
+		testNumber++;
 	}
 }
 
@@ -362,23 +380,57 @@ void idleFunc() {
 void keyboardFunc(unsigned char key, int x, int y) {
 
 	switch (key) {
-	case 'a':
-		phi -= 0.1;
+
+	case 'z':
+		testNumber = 7;
+		if (shaderTest == 5)
+		{
+			shaderTest = 0;
+			currProgram = program[shaderTest];
+			glUseProgram(currProgram);
+
+		}
+		else
+		{
+			shaderTest++;
+			currProgram = program[shaderTest];
+			glUseProgram(currProgram);
+
+		}
 		break;
-	case 'd':
-		phi += 0.1;
+	case 'x':
+		testNumber = 7;
+
+		if (shaderTest == 0)
+		{
+			shaderTest = 5;
+			currProgram = program[shaderTest];
+			glUseProgram(currProgram);
+
+		}
+		else
+		{
+			shaderTest--;
+			currProgram = program[shaderTest];
+			glUseProgram(currProgram);
+
+		}
 		break;
-	case 'w':
-		theta += 0.1;
+	case 'r':
+		testNumber = 0;
+		shaderNumber = 0;
+		runNumber = 0;
 		break;
-	case 's':
-		theta -= 0.1;
+	case 'p':
+		for (int i = 0; i < 6; i++)
+		{
+			std::cout << programName[i] << ": " << results[i] << std::endl;
+		}
 		break;
 	}
 
-	eyex = r*sin(theta)*cos(phi);
-	eyey = r*sin(theta)*sin(phi);
-	eyez = r*cos(theta);
+
+
 
 	glutPostRedisplay();
 
