@@ -7,10 +7,13 @@
 ### MACROS
 
 # GNU (everywhere)
-#CPP = g++ -g -Wall
+# CPP = clang-3.5 -std=c++0x -g -Wall
+# CPP = gcc -std=c++0x 
+
 
 # GNU (faster)
-CPP = g++ -std=c++0x -O5 -Wall -fomit-frame-pointer -ffast-math 
+# CPP = g++ -std=c++0x -O5 -Wall -fomit-frame-pointer -ffast-math 
+CPP = clang++ -g -std=c++0x -O3 -Wall -fomit-frame-pointer -ffast-math 
 
 LIBS = -lm
 
