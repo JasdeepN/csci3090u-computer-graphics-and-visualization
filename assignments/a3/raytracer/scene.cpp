@@ -66,60 +66,11 @@ Color Scene::trace(const Ray &ray)
     *        Color*Color        dito
     *        pow(a,b)           a to the power of b
     ****************************************************/
-    /* for (Light* CurrLight : lights) {
-         light_position = CurrLight->position;
-         light_colour = CurrLight->color;
-
-         light_direction = (light_position - hit).normalized();
-         Point LDis = (hit + light_position).normalized();
-         Point EDis = (hit + V).normalized();
-
-         L = (light_position + light_colour).normalized();
-         diffuse = max(N.dot(L), 0.0);
-
-         if (diffuse > 0.0) {
-             specular = pow(max(0.0, N.dot(L)), material->n);
-         }
-
-         //find hit point to light distance
-         //find hit point to light intersection
-         //they should be same distance
-         //if intersection is less then light pos
-         //in shadow
-
-
-         // Hit shadow_min_hit(std::numeric_limits<double>::infinity(), Vector());
-         // Object *obj = NULL;
-         Ray shadow_probe(hit, light_direction);
-         // for (unsigned int j = 0; j < objects.size(); ++j) {
-             Hit shadow_hit(obj->intersect(shadow_probe));
-             if (shadow_hit.t < min_hit.t) {
-                 in_shadow = false;
-             } else {
-                 in_shadow = true;
-             }
-         // }
-
-         if (!in_shadow)
-         {
-             color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks)) ; // place holder
-         } else  {
-             color = (material->ka * material->color);
-         }
-         // color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks)) ; // place holder
-         color.clamp();
-     }
-     return color;*/
-   for (Light* CurrLight : lights) {
-         light_position = CurrLight->position;
-         light_colour = CurrLight->color;
+    for (Light* CurrLight : lights) {
+        light_position = CurrLight->position;
+        light_colour = CurrLight->color;
 
         light_direction = (hit - light_position);//.normalized();
-        // light_direction = (light_position - hit);//.normalized();
-
-        // eye_distance = light_position + V;
-        // eye_distance = eye_distance.normalized();
-        // std::cout << eye_distance << std::endl;
 
         L = (light_position + light_colour).normalized();
         diffuse = max(N.dot(L), 0.0);
@@ -129,7 +80,7 @@ Color Scene::trace(const Ray &ray)
         }
 
         Ray shadow_ray(hit, light_direction);
-        // shadow_ray(light_position, shadow_ray.at(pow(2,-32)));
+        // Ray shadow_ray(light_position, shadow_ray.at(pow(2, -32)));
         Hit shadow_min_hit(std::numeric_limits<double>::infinity(), Vector());
         Object *min_obj = NULL;
         for (int j = 0; j < objects.size(); ++j) {
@@ -142,22 +93,17 @@ Color Scene::trace(const Ray &ray)
 
         if (min_obj != obj) {
             in_shadow = true;
-        std::cout << "shadow\n";
-
         } else {
             in_shadow = false;
-        std::cout << "NO shadow\n";
-
         }
-    }
+
 
     if (in_shadow == false) {
-        color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
-        // std::cout << "NO shadow\n";
+        color += ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
     } else {
-        color = (material->ka * material->color);
-        // std::cout << "shadow\n";
+        color += (material->ka * material->color);
     }
+}
     color.clamp();
     return color;
 }
