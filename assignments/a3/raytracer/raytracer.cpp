@@ -4,7 +4,7 @@
 //
 //  Created for the Computer Science course "Introduction Computer Graphics"
 //  taught at the University of Groningen by Tobias Isenberg and used with permission
-//  in "Computer Graphics and Scientific Visualization" taught at UOIT by 
+//  in "Computer Graphics and Scientific Visualization" taught at UOIT by
 //  Christopher Collins.
 //
 //  Author:
@@ -28,7 +28,7 @@ Triple parseTriple(const YAML::Node& node);
 
 void operator >> (const YAML::Node& node, Triple& t)
 {
-    assert(node.size()==3);
+    assert(node.size() == 3);
     node[0] >> t.x;
     node[1] >> t.y;
     node[2] >> t.z;
@@ -39,14 +39,14 @@ Triple parseTriple(const YAML::Node& node)
     Triple t;
     node[0] >> t.x;
     node[1] >> t.y;
-    node[2] >> t.z;	
+    node[2] >> t.z;
     return t;
 }
 
 Material* Raytracer::parseMaterial(const YAML::Node& node)
 {
     Material *m = new Material();
-    node["color"] >> m->color;	
+    node["color"] >> m->color;
     node["ka"] >> m->ka;
     node["kd"] >> m->kd;
     node["ks"] >> m->ks;
@@ -65,7 +65,7 @@ Object* Raytracer::parseObject(const YAML::Node& node)
         node["position"] >> pos;
         double r;
         node["radius"] >> r;
-        Sphere *sphere = new Sphere(pos,r);		
+        Sphere *sphere = new Sphere(pos, r);
         returnObject = sphere;
     }
 
@@ -83,7 +83,7 @@ Light* Raytracer::parseLight(const YAML::Node& node)
     node["position"] >> position;
     Color color;
     node["color"] >> color;
-    return new Light(position,color);
+    return new Light(position, color);
 }
 
 /*
@@ -116,7 +116,7 @@ bool Raytracer::readScene(const std::string& inputFilename)
                 cerr << "Error: expected a sequence of objects." << endl;
                 return false;
             }
-            for(YAML::Iterator it=sceneObjects.begin();it!=sceneObjects.end();++it) {
+            for (YAML::Iterator it = sceneObjects.begin(); it != sceneObjects.end(); ++it) {
                 Object *obj = parseObject(*it);
                 // Only add object if it is recognized
                 if (obj) {
@@ -132,14 +132,14 @@ bool Raytracer::readScene(const std::string& inputFilename)
                 cerr << "Error: expected a sequence of lights." << endl;
                 return false;
             }
-            for(YAML::Iterator it=sceneLights.begin();it!=sceneLights.end();++it) {
+            for (YAML::Iterator it = sceneLights.begin(); it != sceneLights.end(); ++it) {
                 scene->addLight(parseLight(*it));
             }
         }
         if (parser) {
             cerr << "Warning: unexpected YAML document, ignored." << endl;
         }
-    } catch(YAML::ParserException& e) {
+    } catch (YAML::ParserException& e) {
         std::cerr << "Error at line " << e.line + 1 << ", col " << e.column + 1 << ": " << e.msg << std::endl;
         return false;
     }
