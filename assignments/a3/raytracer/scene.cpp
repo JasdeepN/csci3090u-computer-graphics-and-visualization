@@ -40,16 +40,14 @@ Color Scene::trace(const Ray &ray)
     Point hit = ray.at(min_hit.t);                 //the hit point from eye
     Vector V = -ray.D;                             //the view vector (eye)
     double diffuse = 0;
-    Point LPos;
-    Point LColor;
+    Point light_position;
+    Point light_colour;
     Point eye_distance;
-    Point light_distance;
     Point L;
-    Point LDir;
+    Point light_direction;
     double specular = 0;
     Color color;
-    Color final_color;
-    bool in_shadow;
+    bool in_shadow = true;
 
     /****************************************************
     * This is where you should insert the color
@@ -69,14 +67,14 @@ Color Scene::trace(const Ray &ray)
     *        pow(a,b)           a to the power of b
     ****************************************************/
     /* for (Light* CurrLight : lights) {
-         LPos = CurrLight->position;
-         LColor = CurrLight->color;
+         light_position = CurrLight->position;
+         light_colour = CurrLight->color;
 
-         LDir = (LPos - hit).normalized();
-         Point LDis = (hit + LPos).normalized();
+         light_direction = (light_position - hit).normalized();
+         Point LDis = (hit + light_position).normalized();
          Point EDis = (hit + V).normalized();
 
-         L = (LPos + LColor).normalized();
+         L = (light_position + light_colour).normalized();
          diffuse = max(N.dot(L), 0.0);
 
          if (diffuse > 0.0) {
@@ -92,7 +90,7 @@ Color Scene::trace(const Ray &ray)
 
          // Hit shadow_min_hit(std::numeric_limits<double>::infinity(), Vector());
          // Object *obj = NULL;
-         Ray shadow_probe(hit, LDir);
+         Ray shadow_probe(hit, light_direction);
          // for (unsigned int j = 0; j < objects.size(); ++j) {
              Hit shadow_hit(obj->intersect(shadow_probe));
              if (shadow_hit.t < min_hit.t) {
@@ -104,41 +102,37 @@ Color Scene::trace(const Ray &ray)
 
          if (!in_shadow)
          {
-             color = ((material->ka * material->color) + (diffuse * material->color * LColor * material->kd) + (LColor * specular * material->ks)) ; // place holder
+             color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks)) ; // place holder
          } else  {
              color = (material->ka * material->color);
          }
-         // color = ((material->ka * material->color) + (diffuse * material->color * LColor * material->kd) + (LColor * specular * material->ks)) ; // place holder
+         // color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks)) ; // place holder
          color.clamp();
      }
      return color;*/
-    for (int i = 0; i < lights.size(); ++i) {
-        LPos = lights[i]->position;
-        LColor = lights[i]->color;
+   for (Light* CurrLight : lights) {
+         light_position = CurrLight->position;
+         light_colour = CurrLight->color;
 
-        LDir = (hit - LPos);//.normalized();
+        light_direction = (hit - light_position);//.normalized();
+        // light_direction = (light_position - hit);//.normalized();
 
-        eye_distance = LPos + V;
-        eye_distance = eye_distance.normalized();
+        // eye_distance = light_position + V;
+        // eye_distance = eye_distance.normalized();
         // std::cout << eye_distance << std::endl;
 
-        light_distance = (hit + LPos).normalized();
-
-
-        L = (LPos + LColor).normalized();
+        L = (light_position + light_colour).normalized();
         diffuse = max(N.dot(L), 0.0);
 
         if (diffuse > 0.0) {
             specular = pow(max(0.0, N.dot(L)), material->n);
         }
 
-        Ray shadow_ray(hit, LDir);
-        // Ray shadow_ray(hit, LDir);
-        // shadow_ray(LPos, shadow_ray.at(pow(2,-32)));
-
+        Ray shadow_ray(hit, light_direction);
+        // shadow_ray(light_position, shadow_ray.at(pow(2,-32)));
         Hit shadow_min_hit(std::numeric_limits<double>::infinity(), Vector());
         Object *min_obj = NULL;
-        for (unsigned int j = 0; j < objects.size(); ++j) {
+        for (int j = 0; j < objects.size(); ++j) {
             Hit shadow_hit(objects[j]->intersect(shadow_ray));
             if (shadow_hit.t < shadow_min_hit.t) {
                 shadow_min_hit = shadow_hit;
@@ -146,20 +140,23 @@ Color Scene::trace(const Ray &ray)
             }
         }
 
-        if (shadow_min_hit.t < min_hit.t) {
+        if (min_obj != obj) {
             in_shadow = true;
-            // std::cout << "in shadow" << std::endl;
+        std::cout << "shadow\n";
+
         } else {
             in_shadow = false;
-            // std::cout << "not in shadow" << std::endl;
+        std::cout << "NO shadow\n";
 
         }
     }
 
     if (in_shadow == false) {
-    color = ((material->ka * material->color) + (diffuse * material->color * LColor * material->kd) + (LColor * specular * material->ks));
+        color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
+        // std::cout << "NO shadow\n";
     } else {
-    color = (material->ka * material->color);
+        color = (material->ka * material->color);
+        // std::cout << "shadow\n";
     }
     color.clamp();
     return color;
