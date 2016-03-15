@@ -51,6 +51,9 @@ Material* Raytracer::parseMaterial(const YAML::Node& node)
     node["kd"] >> m->kd;
     node["ks"] >> m->ks;
     node["n"] >> m->n;
+    node["reflect"] >> m->reflect;
+    node["refract"] >> m->refract;
+    node["eta"] >> m->eta;
     return m;
 }
 
@@ -77,13 +80,14 @@ Object* Raytracer::parseObject(const YAML::Node& node)
     return returnObject;
 }
 
+
 Light* Raytracer::parseLight(const YAML::Node& node)
 {
     Point position;
     node["position"] >> position;
     Color color;
     node["color"] >> color;
-    return new Light(position, color);
+    return new Light(position,color);
 }
 
 /*

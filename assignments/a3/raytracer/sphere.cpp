@@ -59,7 +59,18 @@ Hit Sphere::intersect(const Ray &ray)
     float root1 = ((-1 * B) + discriminant) / 2 * A;
     float root2 = ((-1 * B) - discriminant) / 2 * A;
 
-    if (root1 < 0 || root2 < 0)
+    // if (root1 <= 0 && root2 <= 0) {
+    //     return Hit::NO_HIT();
+    // } else if (root1 <= 0 && root2 > 0) {
+    //     root = root2;
+    // } else if (root1 > 0 && root2 <= 0) {
+    //     root = root1;
+    // } else
+    // {
+    //     root = min(root1, root2);
+    // }
+
+    if (root1 <= 0 || root2 <= 0)
     {
         root = max(root1, root2);
     } else
@@ -87,9 +98,12 @@ Hit Sphere::intersect(const Ray &ray)
     ****************************************************/
 
     Vector H = ray.O + t * ray.D;
+    // Vector H = ray.O * t + ray.D;
+
     Vector N = (H - c) / r;
 
-    //Vector N = (C - ray.at(t));
+    // Vector N = (C - ray.at(t));
+    // N = N.normalized();
     N.normalize();
 
     //Vector N /* = ... */;

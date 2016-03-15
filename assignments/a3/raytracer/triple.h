@@ -7,9 +7,9 @@
 //
 //  Author: Maarten Everts
 //
-//  This framework is inspired by and uses code of the raytracer framework of 
+//  This framework is inspired by and uses code of the raytracer framework of
 //  Bert Freudenberg that can be found at
-//  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html 
+//  http://isgwww.cs.uni-magdeburg.de/graphik/lehre/cg2/projekt/rtprojekt.html
 //
 
 #ifndef TRIPLE_H_SEVQHPTA
@@ -28,17 +28,17 @@ public:
 
     Triple operator+(const Triple &t) const
     {
-        return Triple(x+t.x, y+t.y, z+t.z);
+        return Triple(x + t.x, y + t.y, z + t.z);
     }
 
     Triple operator+(double f) const
     {
-        return Triple(x+f, y+f, z+f);
+        return Triple(x + f, y + f, z + f);
     }
 
     friend Triple operator+(double f, const Triple &t)
     {
-        return Triple(f+t.x, f+t.y, f+t.z);
+        return Triple(f + t.x, f + t.y, f + t.z);
     }
 
     Triple operator-() const
@@ -48,38 +48,38 @@ public:
 
     Triple operator-(const Triple &t) const
     {
-        return Triple(x-t.x, y-t.y, z-t.z);
+        return Triple(x - t.x, y - t.y, z - t.z);
     }
 
     Triple operator-(double f) const
     {
-        return Triple(x-f, y-f, z-f);
+        return Triple(x - f, y - f, z - f);
     }
 
     friend Triple operator-(double f, const Triple &t)
     {
-        return Triple(f-t.x, f-t.y, f-t.z);
+        return Triple(f - t.x, f - t.y, f - t.z);
     }
 
     Triple operator*(const Triple &t) const
     {
-        return Triple(x*t.x,y*t.y,z*t.z);
+        return Triple(x * t.x, y * t.y, z * t.z);
     }
 
     Triple operator*(double f) const
     {
-        return Triple(x*f, y*f, z*f);
+        return Triple(x * f, y * f, z * f);
     }
 
     friend Triple operator*(double f, const Triple &t)
     {
-        return Triple(f*t.x, f*t.y, f*t.z);
+        return Triple(f * t.x, f * t.y, f * t.z);
     }
 
     Triple operator/(double f) const
     {
-        double invf = 1.0/f;
-        return Triple(x*invf, y*invf, z*invf);
+        double invf = 1.0 / f;
+        return Triple(x * invf, y * invf, z * invf);
     }
 
     Triple& operator+=(const Triple &t)
@@ -124,24 +124,23 @@ public:
 
     Triple& operator/=(const double f)
     {
-        double invf = 1.0/f;
+        double invf = 1.0 / f;
         x *= invf;
         y *= invf;
         z *= invf;
         return *this;
     }
 
-
     double dot(const Triple &t) const
     {
-        return x*t.x + y*t.y + z*t.z;
+        return x * t.x + y * t.y + z * t.z;
     }
 
     Triple cross(const Triple &t) const
     {
-        return Triple( y*t.z - z*t.y,
-            z*t.x - x*t.z,
-            x*t.y - y*t.x);
+        return Triple( y * t.z - z * t.y,
+                       z * t.x - x * t.z,
+                       x * t.y - y * t.x);
     }
 
     double length() const
@@ -151,7 +150,7 @@ public:
 
     double length_2() const
     {
-        return x*x + y*y + z*z;
+        return x * x + y * y + z * z;
     }
 
     Triple normalized() const
@@ -162,11 +161,11 @@ public:
     void normalize()
     {
         double l = length();
-        double invl = 1/l;
+        double invl = 1 / l;
         x *= invl;
         y *= invl;
         z *= invl;
-    }	
+    }
 
     friend istream& operator>>(istream &s, Triple &v);
     friend ostream& operator<<(ostream &s, const Triple &v);
@@ -179,7 +178,7 @@ public:
 
     void set(double f, double maxValue)
     {
-        set(f/maxValue);
+        set(f / maxValue);
     }
 
     void set(double red, double green, double blue)
@@ -191,7 +190,7 @@ public:
 
     void set(double r, double g, double b, double maxValue)
     {
-        set(r/maxValue,g/maxValue,b/maxValue);
+        set(r / maxValue, g / maxValue, b / maxValue);
     }
 
     void clamp(double maxValue = 1.0)

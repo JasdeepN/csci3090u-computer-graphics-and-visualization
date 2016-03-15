@@ -19,17 +19,17 @@ char *readShaderFile(char *filename) {
 	int len;
 	int n;
 
-	fid = fopen(filename,"r");
-	if(fid == NULL) {
+	fid = fopen(filename, "r");
+	if (fid == NULL) {
 		printf("can't open shader file: %s\n", filename);
-		return(0);
+		return (0);
 	}
 
 	fseek(fid, 0, SEEK_END);
 	len = ftell(fid);
 	rewind(fid);
 
-	buffer = new char[len+1];
+	buffer = new char[len + 1];
 	n = fread(buffer, sizeof(char), len, fid);
 	buffer[n] = 0;
 
@@ -45,23 +45,23 @@ int buildShader(int type, char *filename) {
 
 	shader = glCreateShader(type);
 	source = readShaderFile(filename);
-	if(source == 0)
+	if (source == 0)
 		return 0;
 
 	glShaderSource(shader, 1, (const  GLchar **) &source, 0);
 	glCompileShader(shader);
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
-	if(result != GL_TRUE) {
-		printf("shader compile error: %s\n",filename);
+	if (result != GL_TRUE) {
+		printf("shader compile error: %s\n", filename);
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &result);
 		buffer = new char[result];
 		glGetShaderInfoLog(shader, result, 0, buffer);
 		printf("%s\n", buffer);
 		delete buffer;
-		return(0);
+		return (0);
 	}
 
-	return(shader);
+	return (shader);
 }
 
 int buildProgram(int first, ...) {
@@ -75,44 +75,44 @@ int buildProgram(int first, ...) {
 	int type;
 
 	program = glCreateProgram();
-	if(first != 0) {
-		glAttachShader(program,first);
+	if (first != 0) {
+		glAttachShader(program, first);
 		glGetShaderiv(first, GL_SHADER_TYPE, &type);
-		if(type == GL_VERTEX_SHADER) 
+		if (type == GL_VERTEX_SHADER)
 			vs++;
-		if(type == GL_FRAGMENT_SHADER)
+		if (type == GL_FRAGMENT_SHADER)
 			fs++;
 	}
 
-	va_start(argptr,first);
-	while((shader = va_arg(argptr,int)) != 0) {
-		glAttachShader(program,shader);
+	va_start(argptr, first);
+	while ((shader = va_arg(argptr, int)) != 0) {
+		glAttachShader(program, shader);
 		glGetShaderiv(shader, GL_SHADER_TYPE, &type);
-		if(type == GL_VERTEX_SHADER) 
+		if (type == GL_VERTEX_SHADER)
 			vs++;
-		if(type == GL_FRAGMENT_SHADER)
+		if (type == GL_FRAGMENT_SHADER)
 			fs++;
 	}
 
-	if(vs == 0) {
+	if (vs == 0) {
 		printf("no vertex shader\n");
 	}
-	if(fs == 0) {
+	if (fs == 0) {
 		printf("no fragment shader\n");
 	}
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &result);
-	if(result != GL_TRUE) {
+	if (result != GL_TRUE) {
 		printf("program link error\n");
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &result);
 		buffer = new char[result];
 		glGetProgramInfoLog(program, result, 0, buffer);
-		printf("%s\n",buffer);
+		printf("%s\n", buffer);
 		delete buffer;
-		return(0);
+		return (0);
 	}
 
-	return(program);
+	return (program);
 
 }
 
@@ -126,26 +126,26 @@ void dumpProgram(int program, char *description) {
 	int shaders;
 	int i;
 
-	printf("Information for shader: %s\n",description);
+	printf("Information for shader: %s\n", description);
 
-	if(!glIsProgram(program)) {
+	if (!glIsProgram(program)) {
 		printf("not a valid shader program\n");
 		return;
 	}
 
 	glGetProgramiv(program, GL_ATTACHED_SHADERS, &shaders);
-	printf("Number of shaders: %d\n",shaders);
+	printf("Number of shaders: %d\n", shaders);
 
-	glGetProgramiv(program,GL_ACTIVE_UNIFORMS,&uniforms);
-	printf("uniforms: %d\n",uniforms);
-	for(i=0; i<uniforms; i++) {
-		glGetActiveUniform(program, i, 256, &length ,&size ,&type, name);
-		printf("  name: %s\n",name);
+	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &uniforms);
+	printf("uniforms: %d\n", uniforms);
+	for (i = 0; i < uniforms; i++) {
+		glGetActiveUniform(program, i, 256, &length , &size , &type, name);
+		printf("  name: %s\n", name);
 	}
-	glGetProgramiv(program,GL_ACTIVE_ATTRIBUTES,&attributes);
-	printf("attributes: %d\n",attributes);
-	for(i=0; i<attributes; i++) {
+	glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES, &attributes);
+	printf("attributes: %d\n", attributes);
+	for (i = 0; i < attributes; i++) {
 		glGetActiveAttrib(program, i, 256, &length, &size, &type, name);
-		printf("  name: %s\n",name);
+		printf("  name: %s\n", name);
 	}
 }

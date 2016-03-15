@@ -1,6 +1,6 @@
 ############################################################################
-# Makefile for the raytracer framwork created for the Computer Science 
-# course "Introduction Computer Graphics" taught at the University of 
+# Makefile for the raytracer framwork created for the Computer Science
+# course "Introduction Computer Graphics" taught at the University of
 # Groningen by Tobias Isenberg.
 ############################################################################
 
@@ -8,12 +8,13 @@
 
 # GNU (everywhere)
 # CPP = clang-3.5 -std=c++0x -g -Wall
-# CPP = gcc -std=c++0x 
+# CPP = gcc -std=c++0x
 
 
 # GNU (faster)
-# CPP = g++ -std=c++0x -O5 -Wall -fomit-frame-pointer -ffast-math 
-CPP = clang++ -g -std=c++0x -O3 -Wall -fomit-frame-pointer -ffast-math 
+# CPP = g++ -std=c++0x -O5 -Wall
+CPP = clang++ -g -std=c++0x -O3 -Wall -fomit-frame-pointer -ffast-math
+# CPP = clang++ -std=c++0x
 
 LIBS = -lm
 
