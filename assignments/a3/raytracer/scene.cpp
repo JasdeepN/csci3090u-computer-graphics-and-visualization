@@ -17,10 +17,9 @@
 #include "scene.h"
 #include "material.h"
 
-Color Scene::trace(const Ray &ray)
+
+Color Scene::trace(const Ray &ray, int recursion_count)
 {
-
-
     // Find hit object and distance
     Hit min_hit(std::numeric_limits<double>::infinity(), Vector());
     Object *obj = NULL;
@@ -42,17 +41,22 @@ Color Scene::trace(const Ray &ray)
     double diffuse = 0;
     Point light_position;
     Point light_colour;
-    Point eye_distance;
     Point L;
     Point light_direction;
+    Point reflection_direction;
     double specular = 0;
     Color color;
+    Color final_colour;
+    Color reflection_colour;
+    Color specular_reflection_color;
     bool in_shadow = true;
+    bool trace_reflections = true;              //<-- toggle for reflections
+    bool trace_shadows = true;                  //<-- toggle for shadows
+
 
     /****************************************************
     * This is where you should insert the color
     * calculation (Phong model).
-    *
     * Given: material, hit, N, V, lights[]
     * Sought: color
     *
@@ -66,6 +70,7 @@ Color Scene::trace(const Ray &ray)
     *        Color*Color        dito
     *        pow(a,b)           a to the power of b
     ****************************************************/
+
     for (Light* CurrLight : lights) {
         light_position = CurrLight->position;
         light_colour = CurrLight->color;
@@ -75,37 +80,67 @@ Color Scene::trace(const Ray &ray)
         L = (light_position + light_colour).normalized();
         diffuse = max(N.dot(L), 0.0);
 
+        Vector R = -L + (2.0 * (L.dot(N)) * N);
+
         if (diffuse > 0.0) {
-            specular = pow(max(0.0, N.dot(L)), material->n);
+            specular = pow(max(0.0, V.dot(R)), (material->n));
         }
 
-        Ray shadow_ray(hit, light_direction);
-        // Ray shadow_ray(light_position, shadow_ray.at(pow(2, -32)));
+        Ray shadow_ray(hit, light_direction.normalized());
+        Point hit_shadow_jiggle = shadow_ray.at(pow(2, -10));
+        shadow_ray = Ray(hit_shadow_jiggle, light_direction);
+
         Hit shadow_min_hit(std::numeric_limits<double>::infinity(), Vector());
         Object *min_obj = NULL;
+
         for (int j = 0; j < objects.size(); ++j) {
+            //shadow stuff
             Hit shadow_hit(objects[j]->intersect(shadow_ray));
             if (shadow_hit.t < shadow_min_hit.t) {
                 shadow_min_hit = shadow_hit;
                 min_obj = objects[j];
             }
+
+            if (min_obj != obj) {
+                in_shadow = true;
+            } else {
+                in_shadow = false;
+            }
+
+            if (trace_shadows) {
+                if (!in_shadow) {
+                    color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
+                } else {
+                    color = (material->ka * material->color);//Color(0,0,0));
+                }
+            } else {
+                color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
+            }
+            //end shadow stuff
         }
-
-        if (min_obj != obj) {
-            in_shadow = true;
-        } else {
-            in_shadow = false;
-        }
-
-
-    if (in_shadow == false) {
-        color += ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
-    } else {
-        color += (material->ka * material->color);
+        final_colour += color;
     }
-}
-    color.clamp();
-    return color;
+
+    //RECURSION (reflections)
+    if (trace_reflections) {
+        if (recursion_count < 5) {
+            reflection_direction = (ray.D - (2 * (ray.D.dot(N)) * N)).normalized();
+
+            Ray reflection_ray(hit, reflection_direction);
+
+            Point hit_jiggle = reflection_ray.at(pow(2, -15));
+            // Point hit_jiggle = reflection_ray.at(pow(2, -32));
+
+            reflection_ray = Ray(hit_jiggle, -reflection_direction);
+
+            reflection_colour = (trace(reflection_ray, recursion_count + 1));
+        }
+    }
+    //END reflections
+
+    reflection_colour.clamp();
+    final_colour.clamp();
+    return final_colour + (reflection_colour * material->reflect);
 }
 
 void Scene::render(Image & img)
@@ -115,8 +150,9 @@ void Scene::render(Image & img)
     for (int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
             Point pixel(x, h - 1 - y, 0);
+            int count = 0;
             Ray ray(eye, (pixel - eye).normalized());
-            Color col = trace(ray);
+            Color col = trace(ray, count);
             col.clamp();
             img(x, y) = col;
         }
