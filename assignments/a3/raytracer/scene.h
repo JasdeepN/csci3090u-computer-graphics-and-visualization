@@ -30,7 +30,7 @@ private:
     std::vector<Light*> lights;
     Triple eye;
 public:
-    Color trace(const Ray &ray, int i, int j, double eta, bool check);
+    Color trace(const Ray &ray, int i, int j, double eta);
     void render(Image &img);
     void addObject(Object *o);
     void addLight(Light *l);

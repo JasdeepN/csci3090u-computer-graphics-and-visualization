@@ -18,7 +18,7 @@
 #include "material.h"
 
 
-Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, double prev_eta, bool swap_eta)
+Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, double prev_eta)
 {
     // Find hit object and distance
     Hit min_hit(std::numeric_limits<double>::infinity(), Vector());
@@ -66,11 +66,6 @@ Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, d
     } else {
         temp_normal = -N;
     }
-
-    // if (ray.D.dot(N) < 0.0) {
-    // } else {
-    //     temp_normal = N;
-    // }
 
     /****************************************************
     * This is where you should insert the color
@@ -139,10 +134,6 @@ Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, d
         final_colour += color;
     }
 
-    // double temp_eta = curr_eta;
-    // curr_eta = prev_eta;
-    // prev_eta = temp_eta;
-
     //RECURSION (reflections)
     if (trace_reflections) {
         if (reflection_count < 5) {
@@ -155,7 +146,7 @@ Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, d
 
             reflection_ray = Ray(hit_jiggle, reflection_ray.D);
 
-            reflection_colour = (trace(reflection_ray, reflection_count + 1, refraction_count, prev_eta, swap_eta));
+            reflection_colour = (trace(reflection_ray, reflection_count + 1, refraction_count, prev_eta));
         }
     }
     //END reflections
@@ -163,9 +154,6 @@ Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, d
     //REFRACTIONS
     if (trace_refractions) {
         if (material->refract > 0.0f) {
-
-            // curr_eta = prev_eta ;
-            // curr_eta = 1.0;
 
             Triple term1 = (-ray.D - temp_normal * (-ray.D.dot(temp_normal)));
             double term2 = (1 - pow(-ray.D.dot(temp_normal), 2));
@@ -178,11 +166,11 @@ Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, d
 
                 Ray refraction_ray(hit, -refraction_direction);
 
-                Point refrac_hit_jiggle = refraction_ray.at(pow(2, -30));
+                Point refrac_hit_jiggle = refraction_ray.at(pow(2, -32));
 
                 refraction_ray = Ray(refrac_hit_jiggle, refraction_ray.D);
 
-                refraction_colour = (trace(refraction_ray, reflection_count, refraction_count + 1, curr_eta, !swap_eta));
+                refraction_colour = (trace(refraction_ray, reflection_count, refraction_count + 1, curr_eta));
             }
         }
     }
@@ -203,7 +191,7 @@ void Scene::render(Image & img)
             Point pixel(x, h - 1 - y, 0);
             int count = 0;
             Ray ray(eye, (pixel - eye).normalized());
-            Color col = trace(ray, count, count, 1.0, false);
+            Color col = trace(ray, count, count, 1.0);
             col.clamp();
             img(x, y) = col;
         }
