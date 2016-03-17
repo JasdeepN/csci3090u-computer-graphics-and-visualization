@@ -1,10 +1,9 @@
 main.o: main.cpp raytracer.h triple.h light.h scene.h object.h image.h \
-  yaml/yaml.h yaml/crt.h yaml/parser.h yaml/node.h yaml/parserstate.h \
-  yaml/exceptions.h yaml/iterator.h
+ yaml/yaml.h yaml/crt.h yaml/parser.h yaml/node.h yaml/parserstate.h \
+ yaml/exceptions.h yaml/iterator.h
 raytracer.o: raytracer.cpp raytracer.h triple.h light.h scene.h object.h \
-  image.h yaml/yaml.h yaml/crt.h yaml/parser.h yaml/node.h \
-  yaml/parserstate.h yaml/exceptions.h yaml/iterator.h sphere.h \
-  material.h
+ image.h yaml/yaml.h yaml/crt.h yaml/parser.h yaml/node.h \
+ yaml/parserstate.h yaml/exceptions.h yaml/iterator.h sphere.h material.h
 sphere.o: sphere.cpp sphere.h object.h triple.h light.h
 light.o: light.cpp light.h triple.h
 material.o: material.cpp material.h triple.h

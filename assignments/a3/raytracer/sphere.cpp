@@ -46,39 +46,30 @@ Hit Sphere::intersect(const Ray &ray)
     double A = ray.D.dot(ray.D);
     double B = 2 * (ray.D.dot(e - c));
     double C = ((e - c).dot(e - c) - (r * r));
-    float root;
 
-    float discriminant = B * B + (-4.0f) * A * C;
+    double discriminant = B * B + (-4.0f) * A * C;
 
     if (discriminant < 0)
     {
         return Hit::NO_HIT();
     }
-    discriminant = sqrtf(discriminant);
+    discriminant = sqrt(discriminant);
 
-    float root1 = ((-1 * B) + discriminant) / 2 * A;
-    float root2 = ((-1 * B) - discriminant) / 2 * A;
+    double root1 = ((-1 * B) + discriminant) / 2 * A;
+    double root2 = ((-1 * B) - discriminant) / 2 * A;
 
-    // if (root1 <= 0 && root2 <= 0) {
-    //     return Hit::NO_HIT();
-    // } else if (root1 <= 0 && root2 > 0) {
-    //     root = root2;
-    // } else if (root1 > 0 && root2 <= 0) {
-    //     root = root1;
-    // } else
-    // {
-    //     root = min(root1, root2);
-    // }
+    double t;
 
-    if (root1 <= 0 || root2 <= 0)
-    {
-        root = max(root1, root2);
-    } else
-    {
-        root = min(root1, root2);
+    if (root1 < 0 && root2 < 0) {
+        return Hit::NO_HIT();
+    } else if (root1 < 0 && root2 > 0) {
+        t = root2;
+    } else if (root1 > 0 && root2 < 0) {
+        t = root1;
+    } else {
+        t = min(root1, root2);
     }
 
-    double t = sqrtf(A) * root;
 
     // std::cout << discriminant << std::endl;
 
@@ -97,14 +88,13 @@ Hit Sphere::intersect(const Ray &ray)
     * Insert calculation of the sphere's normal at the intersection point.
     ****************************************************/
 
-    Vector H = ray.O + t * ray.D;
-    // Vector H = ray.O * t + ray.D;
+    // Vector H = ray.O + t * ray.D;
 
-    Vector N = (H - c) / r;
+    // Vector N = (H - c) / r;
 
-    // Vector N = (C - ray.at(t));
-    // N = N.normalized();
-    N.normalize();
+    Vector N = (ray.at(t) - position);
+    N = N.normalized();
+    // N.normalized();
 
     //Vector N /* = ... */;
 

@@ -18,7 +18,7 @@
 #include "material.h"
 
 
-Color Scene::trace(const Ray &ray, int recursion_count)
+Color Scene::trace(const Ray &ray, int reflection_count, int refraction_count, double prev_eta, bool swap_eta)
 {
     // Find hit object and distance
     Hit min_hit(std::numeric_limits<double>::infinity(), Vector());
@@ -34,25 +34,43 @@ Color Scene::trace(const Ray &ray, int recursion_count)
     // No hit? Return background color.
     if (!obj) return Color(0.0, 0.0, 0.0);
 
-    Material *material = obj->material;            //the hit objects material
-    Vector N = min_hit.N;                          //the normal at hit point
-    Point hit = ray.at(min_hit.t);                 //the hit point from eye
-    Vector V = -ray.D;                             //the view vector (eye)
+    Material *material = obj->material;          //the hit objects material
+    Vector N = min_hit.N;                        //the normal at hit point
+    Point hit = ray.at(min_hit.t);               //the hit point from eye
+    Vector V = -ray.D;                           //the view vector (eye)
     double diffuse = 0;
     Point light_position;
-    Point light_colour;
+    Color light_colour;
     Point L;
-    Point light_direction;
-    Point reflection_direction;
+    Vector light_direction;
+    Vector reflection_direction;
+    Vector refraction_direction;                 //this is t
     double specular = 0;
     Color color;
     Color final_colour;
     Color reflection_colour;
+    Color refraction_colour;
     Color specular_reflection_color;
-    bool in_shadow = true;
-    bool trace_reflections = true;              //<-- toggle for reflections
-    bool trace_shadows = true;                  //<-- toggle for shadows
+    bool in_shadow = false;
+    bool trace_reflections = true;               //toggle for reflections
+    bool trace_shadows = true;                   //toggle for shadows
+    bool trace_refractions = true;               //toggle for refractions
+    Vector temp_normal;
 
+    double curr_eta = material->eta;
+
+
+    if (prev_eta == curr_eta) {
+        curr_eta = 1.0;
+        temp_normal = N;
+    } else {
+        temp_normal = -N;
+    }
+
+    // if (ray.D.dot(N) < 0.0) {
+    // } else {
+    //     temp_normal = N;
+    // }
 
     /****************************************************
     * This is where you should insert the color
@@ -72,6 +90,7 @@ Color Scene::trace(const Ray &ray, int recursion_count)
     ****************************************************/
 
     for (Light* CurrLight : lights) {
+        in_shadow = false;
         light_position = CurrLight->position;
         light_colour = CurrLight->color;
 
@@ -83,37 +102,36 @@ Color Scene::trace(const Ray &ray, int recursion_count)
         Vector R = -L + (2.0 * (L.dot(N)) * N);
 
         if (diffuse > 0.0) {
-            specular = pow(max(0.0, V.dot(R)), (material->n));
+            specular = pow(max(0.0, R.dot(V)), (material->n));
         }
 
-        Ray shadow_ray(hit, light_direction.normalized());
-        Point hit_shadow_jiggle = shadow_ray.at(pow(2, -10));
-        shadow_ray = Ray(hit_shadow_jiggle, light_direction);
+        Ray shadow_ray(hit, -light_direction.normalized());
+        Point hit_shadow_jiggle = shadow_ray.at(pow(2, -32)); //do not change this line
+        shadow_ray = Ray(hit_shadow_jiggle, -light_direction);
 
         Hit shadow_min_hit(std::numeric_limits<double>::infinity(), Vector());
         Object *min_obj = NULL;
 
-        for (int j = 0; j < objects.size(); ++j) {
+        for (int j = 0; j <  objects.size(); ++j) {
             //shadow stuff
             Hit shadow_hit(objects[j]->intersect(shadow_ray));
             if (shadow_hit.t < shadow_min_hit.t) {
                 shadow_min_hit = shadow_hit;
                 min_obj = objects[j];
-            }
-
-            if (min_obj != obj) {
-                in_shadow = true;
-            } else {
-                in_shadow = false;
+                if (shadow_min_hit.t >= 0) {
+                    in_shadow = true;
+                } else {
+                    in_shadow = false;
+                }
             }
 
             if (trace_shadows) {
-                if (!in_shadow) {
+                if (!in_shadow) { //not in shadow
                     color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
-                } else {
+                } else { //in shadow
                     color = (material->ka * material->color);//Color(0,0,0));
                 }
-            } else {
+            } else { //shadows off
                 color = ((material->ka * material->color) + (diffuse * material->color * light_colour * material->kd) + (light_colour * specular * material->ks));
             }
             //end shadow stuff
@@ -121,26 +139,59 @@ Color Scene::trace(const Ray &ray, int recursion_count)
         final_colour += color;
     }
 
+    // double temp_eta = curr_eta;
+    // curr_eta = prev_eta;
+    // prev_eta = temp_eta;
+
     //RECURSION (reflections)
     if (trace_reflections) {
-        if (recursion_count < 5) {
+        if (reflection_count < 5) {
             reflection_direction = (ray.D - (2 * (ray.D.dot(N)) * N)).normalized();
 
             Ray reflection_ray(hit, reflection_direction);
 
-            Point hit_jiggle = reflection_ray.at(pow(2, -15));
-            // Point hit_jiggle = reflection_ray.at(pow(2, -32));
+            // Point hit_jiggle = reflection_ray.at(pow(2, -10)); //do not change this
+            Point hit_jiggle = reflection_ray.at(pow(2, -32));
 
-            reflection_ray = Ray(hit_jiggle, -reflection_direction);
+            reflection_ray = Ray(hit_jiggle, reflection_ray.D);
 
-            reflection_colour = (trace(reflection_ray, recursion_count + 1));
+            reflection_colour = (trace(reflection_ray, reflection_count + 1, refraction_count, prev_eta, swap_eta));
         }
     }
     //END reflections
 
-    reflection_colour.clamp();
+    //REFRACTIONS
+    if (trace_refractions) {
+        if (material->refract > 0.0f) {
+
+            // curr_eta = prev_eta ;
+            // curr_eta = 1.0;
+
+            Triple term1 = (-ray.D - temp_normal * (-ray.D.dot(temp_normal)));
+            double term2 = (1 - pow(-ray.D.dot(temp_normal), 2));
+
+            refraction_direction = ((prev_eta * term1) / curr_eta) - (temp_normal) * (sqrt(1 - ((pow(prev_eta, 2)) * term2) / pow(curr_eta, 2)));
+
+            if (refraction_count < 5) {
+
+                // refraction_direction = refraction_direction.normalized();
+
+                Ray refraction_ray(hit, -refraction_direction);
+
+                Point refrac_hit_jiggle = refraction_ray.at(pow(2, -30));
+
+                refraction_ray = Ray(refrac_hit_jiggle, refraction_ray.D);
+
+                refraction_colour = (trace(refraction_ray, reflection_count, refraction_count + 1, curr_eta, !swap_eta));
+            }
+        }
+    }
+    // }
+    //REFRACTIONS END
+    final_colour += (refraction_colour * material->refract) + (reflection_colour * material->reflect) ;
+
     final_colour.clamp();
-    return final_colour + (reflection_colour * material->reflect);
+    return final_colour;
 }
 
 void Scene::render(Image & img)
@@ -152,7 +203,7 @@ void Scene::render(Image & img)
             Point pixel(x, h - 1 - y, 0);
             int count = 0;
             Ray ray(eye, (pixel - eye).normalized());
-            Color col = trace(ray, count);
+            Color col = trace(ray, count, count, 1.0, false);
             col.clamp();
             img(x, y) = col;
         }
