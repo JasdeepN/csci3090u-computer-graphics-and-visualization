@@ -34,40 +34,40 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="example6c.vs">
+    <None Include="direct_fr.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6c.frag">
+    <None Include="direct_fr.vs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6e.frag">
+    <None Include="direct_vx.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6e.vs">
+    <None Include="direct_vx.vs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6f.frag">
+    <None Include="spotlight_fr.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6f.vs">
+    <None Include="spotlight_fr.vs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6d.frag">
+    <None Include="spotlight_vx.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6d.vs">
+    <None Include="spotlight_vx.vs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6a.frag">
+    <None Include="world_fr.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6a.vs">
+    <None Include="world_fr.vs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6b.frag">
+    <None Include="world_vx.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="example6b.vs">
+    <None Include="world_vx.vs">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

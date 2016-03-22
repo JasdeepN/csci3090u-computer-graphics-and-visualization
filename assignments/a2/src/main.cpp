@@ -91,9 +91,8 @@ void init() {
 	/*  Load the obj file */
 
 	//std::string err = tinyobj::LoadObj(shapes, materials, "buddha.obj", 0);
-
-	//std::string err = tinyobj::LoadObj(shapes, materials, "dragon.obj", 0);
-	std::string err = tinyobj::LoadObj(shapes, materials, "vase.obj", 0);
+	std::string err = tinyobj::LoadObj(shapes, materials, "dragon.obj", 0);
+	//std::string err = tinyobj::LoadObj(shapes, materials, "vase.obj", 0);
 
 
 	if (!err.empty()) {
@@ -361,6 +360,7 @@ void idleFunc() {
 	{
 		std::cout << "Test complete" << std::endl;
 		std::cout << "press \'r\' to re-test or \'z\' and \'x\' to switch manually" << std::endl;
+		std::cout << "press \'p\' to print results of last test" << std::endl;
 		testNumber++;
 		testNumber++;
 	}
@@ -422,6 +422,7 @@ void keyboardFunc(unsigned char key, int x, int y) {
 		runNumber = 0;
 		break;
 	case 'p':
+		std::cout << "RESULTS OF LAST TEST:" << std::endl;
 		for (int i = 0; i < 6; i++)
 		{
 			std::cout << programName[i] << ": " << results[i] << std::endl;
@@ -478,8 +479,8 @@ int main(int argc, char **argv) {
 
 	eyex = 0.0;
 	eyey = 0.0;
-	//eyez = -2.0 ; //buddha and drag
-	eyez = 500.0; //vase
+	eyez = -2.0 ; //buddha and drag
+	//eyez = 500.0; //vase
 
 	theta = 0.5;
 	phi = 1.5;
