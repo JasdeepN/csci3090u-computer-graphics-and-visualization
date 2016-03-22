@@ -1,0 +1,7 @@
+First we multiplied the texture coordinates by 4, this made the texture repeat in every direction 4 times.
+
+To add a rotation to the texture we used a 2x2 rotation matrix and multiplied the texture coordinates making a skewed looking checkerboard pattern. 
+
+To make the white squares red we multiplied vec4(1.0, 0.0, 0.0, 1.0) with the fragment colour, this makes all the white squares red.
+
+To make the black squares a different colour instead of multiplying vec4(1.0, 0.0, 0.0, 1.0) we add some other vec4 and it will change the colour of both squares.
